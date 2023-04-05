@@ -53,9 +53,11 @@ app.get('/:word/echo', function(req, res){
   res.json({echo: req.params.word});
 })
 
-app.post('/name', function(req, res){
+function getName(req, res){
   res.json({name: `${req.query.first} ${req.query.last}`});
-})
+}
+
+app.route('/name').get(getName).post(getName)
 
 app.use("/public", express.static("public"));
 
