@@ -1,7 +1,14 @@
-// require('dotenv').config()
+require("dotenv").config();
 let express = require("express");
 console.log("Hello World");
 let app = express();
+
+app.use(middlewareLog);
+
+function middlewareLog(req, res, next) {
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  next();
+}
 
 app.get("/", getString);
 app.get("/json", getJson);
@@ -15,8 +22,8 @@ function getString(req, res) {
 }
 
 function getJson(req, res) {
-  let message = 'Hello json'
-  if (process.env.MESSAGE_STYLE === 'uppercase') {
+  let message = "Hello json";
+  if (process.env.MESSAGE_STYLE === "uppercase") {
     message = message.toUpperCase();
   } else {
     message = "Hello json";
@@ -24,5 +31,6 @@ function getJson(req, res) {
   res.json({ message });
 }
 app.use("/public", express.static("public"));
+
 
 module.exports = app;
