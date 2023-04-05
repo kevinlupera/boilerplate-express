@@ -13,6 +13,7 @@ function middlewareLog(req, res, next) {
 
 function middlewareTime(req, res, next) {
   req.time =new Date().toString()
+  console.log(req.time)
   next();
 }
 
