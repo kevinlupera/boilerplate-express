@@ -9,9 +9,9 @@ app.get("/", getString);
 // }
 
 function getString(req, res) {
-const absolutePath = __dirname + '/views/index.html'
-  console.log("🚀 ~ file: myApp.js:13 ~ getString ~ absolutePath:", absolutePath)
+  const absolutePath = __dirname + "/views/index.html";
   res.sendFile(absolutePath);
 }
+app.use("/public", express.static("public"));
 
 module.exports = app;
