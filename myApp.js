@@ -4,14 +4,22 @@ console.log("Hello World");
 let app = express();
 
 app.use(middlewareLog);
+app.use(middlewareTime);
 
 function middlewareLog(req, res, next) {
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
 }
 
+function middlewareTime(req, res, next) {
+  req.time =new Date().toString()
+  next();
+}
+
 app.get("/", getString);
 app.get("/json", getJson);
+app.get('/now', getNow);
+
 // function getString(req, res) {
 //   res.send("Hello Express");
 // }
@@ -29,6 +37,11 @@ function getJson(req, res) {
     message = "Hello json";
   }
   res.json({ message });
+}
+
+function getNow(req, res) {
+  res.json({time: req.time})
+  
 }
 app.use("/public", express.static("public"));
 
